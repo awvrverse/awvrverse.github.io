@@ -1,0 +1,105 @@
+---
+layout: default
+---
+
+<article class="page-article">
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="page-description">{{ page.description }}</p>
+            {% endif %}
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="page-content">
+            {{ content }}
+        </div>
+    </div>
+</article>
+
+<style>
+.page-header {
+    padding: var(--spacing-2xl) 0 var(--spacing-xl);
+    text-align: center;
+}
+
+.page-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: var(--spacing-md);
+    color: var(--md-sys-color-on-surface);
+}
+
+.page-description {
+    font-size: 1.25rem;
+    color: var(--md-sys-color-on-surface-variant);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: var(--spacing-2xl);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: var(--spacing-2xl) auto;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--md-sys-color-primary);
+}
+
+.category-posts {
+    list-style: none;
+    padding: 0;
+}
+
+.category-posts li {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--md-sys-color-outline);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-posts li a {
+    color: var(--md-sys-color-primary);
+    font-weight: 500;
+}
+
+.category-posts li time {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.875rem;
+}
+</style>
