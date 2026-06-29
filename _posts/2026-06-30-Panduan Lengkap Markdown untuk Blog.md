@@ -3,7 +3,7 @@ layout: post
 title: "Panduan Lengkap Markdown untuk Blog"
 description: "Pelajari cara menggunakan syntax Markdown untuk membuat konten blog yang menarik dan terstruktur dengan baik."
 date: 2026-06-30 04:00:00 +0700
-categories: [Tutorial, md]
+categories: [Tutorial, md, test]
 image: "https://tse4.mm.bing.net/th/id/OIP.WjdG9B6Avr2nMOba3ib1ewHaEK?dpr=1,2&pid=ImgDetMain&o=7&rm=3"
 tags: [markdown, tutorial, blogging]
 ---
