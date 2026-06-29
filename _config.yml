@@ -1,0 +1,74 @@
+title: "Blog Portal Modern"
+description: "Blog modern dengan Material Design 3"
+baseurl: ""
+url: "https://awvrverse.github.io"
+
+# SEO Configuration
+seo:
+  type: "website"
+  twitter:
+    username: "@yourtwitter"
+  social:
+    name: "Your Name"
+    links:
+      - "https://twitter.com/yourtwitter"
+      - "https://github.com/yourusername"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+paginate: 6
+paginate_path: "/page:num/"
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Material Design Colors
+colors:
+  primary: "#6750A4"
+  onPrimary: "#FFFFFF"
+  primaryContainer: "#EADDFF"
+  secondary: "#625B71"
+  tertiary: "#7D5260"
+  background: "#FFFBFE"
+  surface: "#FFFBFE"
+  error: "#B3261E"
+
+# Social Links
+social:
+  github: "yourusername"
+  twitter: "yourtwitter"
+  linkedin: "yourlinkedin"
+
+# Google Analytics (optional)
+# google_analytics: "UA-XXXXXXXXX-X"
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
