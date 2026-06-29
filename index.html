@@ -1,0 +1,110 @@
+---
+layout: default
+title: "Home"
+description: "Blog Portal Modern dengan Material Design 3"
+---
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Selamat Datang di {{ site.title }}</h1>
+            <p class="hero-subtitle">{{ site.description }}</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.posts.size }}</span>
+                    <span class="stat-label">Artikel</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.categories.size }}</span>
+                    <span class="stat-label">Kategori</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="posts-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Artikel Terbaru</h2>
+            <div class="section-filters">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                {% for category in site.categories limit: 4 %}
+                <button class="filter-btn" data-filter="{{ category[0] }}">{{ category[0] }}</button>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="posts-grid" id="postsGrid">
+            {% for post in paginator.posts %}
+            <article class="post-card" itemscope itemtype="http://schema.org/Article">
+                {% if post.image %}
+                <div class="post-card-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy" itemprop="image">
+                    <div class="post-card-overlay"></div>
+                </div>
+                {% endif %}
+                
+                <div class="post-card-content">
+                    <div class="post-card-meta">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            {{ post.date | date: "%d %b %Y" }}
+                        </time>
+                        {% if post.categories %}
+                        <span class="post-category">{{ post.categories[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <h3 class="post-card-title" itemprop="headline">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    
+                    <p class="post-card-excerpt" itemprop="description">
+                        {% if post.description %}
+                        {{ post.description }}
+                        {% else %}
+                        {{ post.excerpt | strip_html | truncate: 150 }}
+                        {% endif %}
+                    </p>
+                    
+                    <div class="post-card-footer">
+                        <div class="post-author">
+                            <span class="material-icons-round">person</span>
+                            <span>Admin</span>
+                        </div>
+                        <span class="read-time">
+                            <span class="material-symbols-outlined">timer</span>
+                            {{ post.content | number_of_words | divided_by: 200 }} min
+                        </span>
+                    </div>
+                    
+                    <a href="{{ post.url | relative_url }}" class="post-card-link" itemprop="url">
+                        Baca Selengkapnya
+                        <span class="material-icons-round">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="spinner"></div>
+            <span>Loading more articles...</span>
+        </div>
+        
+        <!-- No More Posts -->
+        <div class="no-more-posts" id="noMorePosts" style="display: none;">
+            <span class="material-icons-round">check_circle</span>
+            <p>Tidak ada artikel lagi</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pagination (hidden, used for infinite scroll) -->
+<div class="pagination-info" 
+     data-current-page="{{ paginator.page }}" 
+     data-total-pages="{{ paginator.total_pages }}"
+     style="display: none;">
+</div>
