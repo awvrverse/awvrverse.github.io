@@ -1,0 +1,112 @@
+---
+layout: default
+---
+
+<article class="post-article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <div class="container">
+            <div class="post-meta">
+                <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    {{ page.date | date: "%d %B %Y" }}
+                </time>
+                {% if page.categories %}
+                <div class="post-categories">
+                    {% for category in page.categories %}
+                    <span class="category-chip">{{ category }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+            
+            {% if page.description %}
+            <p class="post-description" itemprop="description">{{ page.description }}</p>
+            {% endif %}
+            
+            <div class="post-author">
+                <div class="author-avatar">
+                    <span class="material-icons-round">person</span>
+                </div>
+                <div class="author-info">
+                    <span class="author-name">Admin</span>
+                    <span class="reading-time">
+                        <span class="material-symbols-outlined">timer</span>
+                        {{ content | number_of_words | divided_by: 200 | append: " min read" }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    {% if page.image %}
+    <div class="post-featured-image">
+        <img src="{{ page.image }}" alt="{{ page.title }}" itemprop="image">
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="post-content" itemprop="articleBody">
+            {{ content }}
+        </div>
+        
+        <div class="post-share">
+            <h3>Bagikan Artikel</h3>
+            <div class="share-buttons">
+                <button class="share-btn" onclick="shareToTwitter()" aria-label="Share to Twitter">
+                    <span class="material-icons-round">share</span>
+                    Twitter
+                </button>
+                <button class="share-btn" onclick="shareToFacebook()" aria-label="Share to Facebook">
+                    <span class="material-icons-round">share</span>
+                    Facebook
+                </button>
+                <button class="share-btn" onclick="copyLink()" aria-label="Copy Link">
+                    <span class="material-icons-round">link</span>
+                    Copy Link
+                </button>
+            </div>
+        </div>
+        
+        <nav class="post-navigation">
+            {% if page.previous.url %}
+            <a href="{{ page.previous.url }}" class="nav-previous">
+                <span class="material-symbols-outlined">arrow_back</span>
+                <div>
+                    <small>Previous</small>
+                    <span>{{ page.previous.title }}</span>
+                </div>
+            </a>
+            {% endif %}
+            
+            {% if page.next.url %}
+            <a href="{{ page.next.url }}" class="nav-next">
+                <div>
+                    <small>Next</small>
+                    <span>{{ page.next.title }}</span>
+                </div>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            {% endif %}
+        </nav>
+    </div>
+</article>
+
+<script>
+function shareToTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent("{{ page.title }}");
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+}
+
+function shareToFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Link copied to clipboard!');
+}
+</script>
