@@ -1,0 +1,70 @@
+<footer class="app-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="{{ '/' | relative_url }}" class="footer-logo">
+                    <span class="material-icons-round">newspaper</span>
+                    <span>{{ site.title }}</span>
+                </a>
+                <p>{{ site.description }}</p>
+                <div class="social-links">
+                    {% if site.social.github %}
+                    <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" aria-label="GitHub">
+                        <span class="material-icons-round">code</span>
+                    </a>
+                    {% endif %}
+                    {% if site.social.twitter %}
+                    <a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener" aria-label="Twitter">
+                        <span class="material-icons-round">chat</span>
+                    </a>
+                    {% endif %}
+                    {% if site.social.linkedin %}
+                    <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <span class="material-icons-round">work</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Navigasi</h4>
+                <ul>
+                    <li><a href="{{ '/' | relative_url }}">Beranda</a></li>
+                    <li><a href="{{ '/about/' | relative_url }}">Tentang</a></li>
+                    <li><a href="{{ '/categories/' | relative_url }}">Kategori</a></li>
+                    <li><a href="{{ '/contact/' | relative_url }}">Kontak</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Kategori</h4>
+                <ul>
+                    {% for category in site.categories limit: 5 %}
+                    <li><a href="{{ '/categories/#' | append: category[0] }}">{{ category[0] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Dapatkan update artikel terbaru</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email Anda" required>
+                    <button type="submit" class="btn-primary">
+                        <span class="material-icons-round">send</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+            <p>Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> & Material Design 3</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span class="material-icons-round">arrow_upward</span>
+</button>
