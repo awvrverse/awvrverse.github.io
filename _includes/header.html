@@ -1,0 +1,75 @@
+<header class="app-header" id="appHeader">
+    <div class="header-container">
+        <div class="header-start">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+                <span class="material-icons-round">menu</span>
+            </button>
+            <a href="{{ '/' | relative_url }}" class="logo">
+                <span class="material-icons-round">newspaper</span>
+                <span class="logo-text">{{ site.title }}</span>
+            </a>
+        </div>
+        
+        <nav class="header-nav" id="headerNav">
+            <ul class="nav-list">
+                <li><a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
+                    <span class="material-symbols-outlined">home</span>
+                    Beranda
+                </a></li>
+                <li><a href="{{ '/about/' | relative_url }}" class="nav-link {% if page.url contains '/about/' %}active{% endif %}">
+                    <span class="material-symbols-outlined">info</span>
+                    Tentang
+                </a></li>
+                <li><a href="{{ '/categories/' | relative_url }}" class="nav-link {% if page.url contains '/categories/' %}active{% endif %}">
+                    <span class="material-symbols-outlined">category</span>
+                    Kategori
+                </a></li>
+                <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url contains '/contact/' %}active{% endif %}">
+                    <span class="material-symbols-outlined">mail</span>
+                    Kontak
+                </a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-end">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span class="material-icons-round" id="themeIcon">dark_mode</span>
+            </button>
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+                <span class="material-icons-round">search</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Search Modal -->
+<div class="search-modal" id="searchModal">
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <span class="material-icons-round">search</span>
+            <input type="text" id="searchInput" placeholder="Cari artikel..." autocomplete="off">
+            <button class="close-search" id="closeSearch" aria-label="Close search">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+    </div>
+</div>
+
+<!-- Mobile Navigation -->
+<nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+        <span>Menu</span>
+        <button class="close-mobile-nav" id="closeMobileNav">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+    <ul class="mobile-nav-list">
+        <li><a href="{{ '/' | relative_url }}">Beranda</a></li>
+        <li><a href="{{ '/about/' | relative_url }}">Tentang</a></li>
+        <li><a href="{{ '/categories/' | relative_url }}">Kategori</a></li>
+        <li><a href="{{ '/contact/' | relative_url }}">Kontak</a></li>
+    </ul>
+</nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
