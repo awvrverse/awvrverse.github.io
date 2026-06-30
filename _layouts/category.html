@@ -1,0 +1,222 @@
+---
+layout: default
+---
+
+<div class="container">
+    <header class="category-header">
+        <a href="{{ '/categories/' | relative_url }}" class="back-link">
+            <span class="material-icons-round">arrow_back</span>
+            Semua Kategori
+        </a>
+        <h1 class="category-title">
+            <span class="material-icons-round">folder</span>
+            {{ page.title }}
+        </h1>
+        <p class="category-description">
+            {{ page.posts_count }} artikel dalam kategori ini
+        </p>
+    </header>
+
+    <div class="posts-list">
+        {% for post in page.posts %}
+        <article class="post-list-item">
+            {% if post.image %}
+            <div class="post-list-image">
+                <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            
+            <div class="post-list-content">
+                <div class="post-list-meta">
+                    <time datetime="{{ post.date | date_to_xmlschema }}">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        {{ post.date | date: "%d %B %Y" }}
+                    </time>
+                    <span class="read-time">
+                        <span class="material-symbols-outlined">timer</span>
+                        {{ post.content | number_of_words | divided_by: 200 }} min
+                    </span>
+                </div>
+                
+                <h2 class="post-list-title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </h2>
+                
+                <p class="post-list-excerpt">
+                    {{ post.excerpt | strip_html | truncate: 200 }}
+                </p>
+                
+                {% if post.tags.size > 0 %}
+                <div class="post-list-tags">
+                    {% for tag in post.tags limit: 3 %}
+                    <a href="{{ '/tag/' | append: tag | slugify | append: '/' | relative_url }}" class="tag-chip">
+                        <span class="material-icons-round">sell</span>
+                        {{ tag }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.category-header {
+    padding: var(--spacing-2xl) 0;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--md-sys-color-primary);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.category-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: var(--spacing-md);
+}
+
+.category-title .material-icons-round {
+    color: var(--md-sys-color-primary);
+}
+
+.category-description {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 1.125rem;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding-bottom: var(--spacing-2xl);
+}
+
+.post-list-item {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--spacing-lg);
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-large);
+    overflow: hidden;
+    box-shadow: var(--md-sys-elevation-1);
+    transition: var(--transition-fast);
+}
+
+.post-list-item:hover {
+    box-shadow: var(--md-sys-elevation-3);
+    transform: translateY(-2px);
+}
+
+.post-list-image {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+}
+
+.post-list-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-medium);
+}
+
+.post-list-item:hover .post-list-image img {
+    transform: scale(1.05);
+}
+
+.post-list-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.post-list-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: var(--spacing-sm);
+}
+
+.post-list-meta time,
+.read-time {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.post-list-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.3;
+}
+
+.post-list-title a {
+    color: var(--md-sys-color-on-surface);
+}
+
+.post-list-title a:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.post-list-excerpt {
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: var(--spacing-md);
+    flex: 1;
+}
+
+.post-list-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.tag-chip:hover {
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
+}
+
+.tag-chip .material-icons-round {
+    font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+    .post-list-item {
+        grid-template-columns: 1fr;
+    }
+    
+    .post-list-image {
+        aspect-ratio: 16/9;
+    }
+}
+</style>
