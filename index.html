@@ -28,14 +28,11 @@ description: "Blog Portal Modern dengan Material Design 3"
         <div class="section-header">
             <h2 class="section-title">Artikel Terbaru</h2>
             <div class="section-filters">
-    <button class="filter-btn active" data-filter="all">Semua ({{ site.posts.size }})</button>
-    {% assign sorted_categories = site.categories | sort %}
-    {% for category in sorted_categories %}
-    <button class="filter-btn" data-filter="{{ category[0] }}">
-        {{ category[0] }} ({{ category[1].size }})
-    </button>
-    {% endfor %}
-</div>
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                {% for category in site.categories limit: 4 %}
+                <button class="filter-btn" data-filter="{{ category[0] }}">{{ category[0] }}</button>
+                {% endfor %}
+            </div>
         </div>
         
         <div class="posts-grid" id="postsGrid">
