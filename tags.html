@@ -1,0 +1,234 @@
+---
+layout: page
+title: "Tags"
+description: "Jelajahi artikel berdasarkan tag"
+permalink: /tags/
+---
+
+<div class="tags-page">
+    <div class="tags-stats">
+        <p>Menampilkan <strong>{{ site.tags.size }}</strong> tags dari <strong>{{ site.posts.size }}</strong> artikel</p>
+    </div>
+
+    <div class="tags-cloud">
+        {% assign sorted_tags = site.tags | sort %}
+        {% for tag in sorted_tags %}
+            {% assign tag_name = tag[0] %}
+            {% assign posts = tag[1] %}
+            {% assign count = posts.size %}
+            
+            {% if count >= 10 %}
+                {% assign size_class = "tag-xl" %}
+            {% elsif count >= 5 %}
+                {% assign size_class = "tag-lg" %}
+            {% elsif count >= 3 %}
+                {% assign size_class = "tag-md" %}
+            {% else %}
+                {% assign size_class = "tag-sm" %}
+            {% endif %}
+            
+            <a href="{{ '/tag/' | append: tag_name | slugify | append: '/' | relative_url }}" 
+               class="tag-pill {{ size_class }}">
+                <span class="material-icons-round">sell</span>
+                {{ tag_name }}
+                <span class="tag-count">{{ count }}</span>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="tags-list-section">
+        <h2 class="section-title">Semua Tags</h2>
+        <div class="tags-grid">
+            {% for tag in sorted_tags %}
+                {% assign tag_name = tag[0] %}
+                {% assign posts = tag[1] %}
+                
+                <div class="tag-card">
+                    <div class="tag-card-header">
+                        <span class="material-icons-round">sell</span>
+                        <h3>{{ tag_name }}</h3>
+                        <span class="tag-badge">{{ posts.size }}</span>
+                    </div>
+                    <ul class="tag-posts-list">
+                        {% for post in posts limit: 3 %}
+                        <li>
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                            <time>{{ post.date | date: "%d %b %Y" }}</time>
+                        </li>
+                        {% endfor %}
+                        {% if posts.size > 3 %}
+                        <li class="more-link">
+                            <a href="{{ '/tag/' | append: tag_name | slugify | append: '/' | relative_url }}">
+                                Lihat semua {{ posts.size }} artikel →
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+.tags-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tags-stats {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
+    border-radius: var(--md-sys-shape-corner-large);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    background-color: var(--md-sys-color-surface-variant);
+    border-radius: var(--md-sys-shape-corner-large);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    text-decoration: none;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.tag-pill:hover {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.tag-pill .material-icons-round {
+    font-size: 1rem;
+}
+
+.tag-sm { font-size: 0.875rem; }
+.tag-md { font-size: 1rem; }
+.tag-lg { font-size: 1.125rem; }
+.tag-xl { font-size: 1.25rem; }
+
+.tag-count {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tag-pill:hover .tag-count {
+    background-color: rgba(255,255,255,0.3);
+    color: var(--md-sys-color-on-primary);
+}
+
+.tags-list-section {
+    margin-top: var(--spacing-2xl);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: var(--spacing-xl);
+    color: var(--md-sys-color-on-surface);
+}
+
+.tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.tag-card {
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: var(--spacing-lg);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.tag-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--md-sys-color-outline);
+}
+
+.tag-card-header .material-icons-round {
+    color: var(--md-sys-color-primary);
+}
+
+.tag-card-header h3 {
+    flex: 1;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.tag-badge {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tag-posts-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tag-posts-list li {
+    padding: var(--spacing-sm) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    border-bottom: 1px solid var(--md-sys-color-surface-variant);
+}
+
+.tag-posts-list li:last-child {
+    border-bottom: none;
+}
+
+.tag-posts-list a {
+    color: var(--md-sys-color-on-surface);
+    font-weight: 500;
+    flex: 1;
+}
+
+.tag-posts-list a:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.tag-posts-list time {
+    font-size: 0.75rem;
+    color: var(--md-sys-color-on-surface-variant);
+    white-space: nowrap;
+}
+
+.more-link a {
+    color: var(--md-sys-color-primary);
+    font-size: 0.875rem;
+}
+</style>
