@@ -1134,3 +1134,34 @@ button {
     color: var(--md-sys-color-primary) !important;
     font-weight: 500;
 }
+
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--md-sys-color-outline);
+}
+
+.post-tags > .material-icons-round {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 1.25rem;
+}
+
+.tag-link {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.tag-link:hover {
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
+}
