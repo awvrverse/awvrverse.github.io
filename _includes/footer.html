@@ -41,6 +41,21 @@
     </ul>
 </div>
 
+<h4>Kategori</h4>
+    <ul>
+        {% assign sorted_categories = site.categories | sort %}
+        {% for category in sorted_categories limit: 8 %}
+        <li>
+            <a href="{{ '/category/' | append: category[0] | slugify | append: '/' | relative_url }}">
+                {{ category[0] }} 
+                <span class="footer-count">({{ category[1].size }})</span>
+            </a>
+        </li>
+        {% endfor %}
+        <li><a href="{{ '/categories/' | relative_url }}" class="view-all">Lihat Semua →</a></li>
+    </ul>
+</div>
+
 <div class="footer-links">
     <h4>Tags Populer</h4>
     <ul>
