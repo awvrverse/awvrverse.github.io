@@ -17,20 +17,6 @@ layout: default
     {% endfor %}
 </div>
 {% endif %}
-
-<!-- TAMBAHKAN DI SINI ↓↓↓ -->
-{% if page.tags.size > 0 %}
-<div class="post-tags">
-    <span class="material-icons-round">sell</span>
-    <div class="post-tags-list">
-        {% for tag in page.tags %}
-        <a href="{{ '/tags/#' | append: tag | slugify | relative_url }}" class="tag-link">
-            #{{ tag }}
-        </a>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
             </div>
             
             <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
